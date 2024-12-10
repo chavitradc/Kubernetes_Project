@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-devops-deployment # Name of the deployment
+  labels:
+    app: devops # Labels for identifying the deployment
+spec:
+  replicas: 3 # Number of pod replicas
+  selector:
+    matchLabels:
+      app: devops # Match the labels of the Pods
+  template:
+    metadata:
+      labels:
+        app: devops # Labels for Pods created by this deployment
+    spec:
+      containers:
+        - name: devops # Name of the container
+          image: chavitradc/pipeline-demo # Docker image to use
+          ports:
+            - containerPort: 3000 # Expose container's port 3000
+          env: # (Optional) Environment variables
+            - name: NEXT_PUBLIC_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: my-todolist-secrets
+                  key: NEXT_PUBLIC_API_URL
+            - name: NEXT_PUBLIC_DELETE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-todolist-secrets
+                  key: NEXT_PUBLIC_DELETE_KEY
+            - name: NEXT_PUBLIC_GET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-todolist-secrets
+                  key: NEXT_PUBLIC_GET_KEY
+            - name: NEXT_PUBLIC_POST_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-todolist-secrets
+                  key: NEXT_PUBLIC_POST_KEY
+            - name: NEXT_PUBLIC_PUT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-todolist-secrets
+                  key: NEXT_PUBLIC_PUT_KEY

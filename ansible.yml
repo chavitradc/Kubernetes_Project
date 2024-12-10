@@ -1,0 +1,14 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Create Kubernetes secret
+      command: |
+        kubectl apply -f /home/dew/Secret.yml
+
+    - name: Create new deployment
+      command: |
+        kubectl apply -f /home/dew/Deployment.yml
+
+    - name: Create new service
+      command: |
+        kubectl apply -f /home/dew/Service.yml
