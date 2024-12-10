@@ -8,18 +8,18 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: devops
+      app: devops # Match the labels of the Pods
   template:
     metadata:
       labels:
-        app: devops
+        app: devops # Labels for Pods created by this deployment
     spec:
       containers:
         - name: devops
           image: chavitradc/pipeline-demo:latest
           ports:
-            - containerPort: 3000
-          env:
+            - containerPort: 3000 # Expose container's port 3000
+          env: # (Optional) Environment variables
             - name: NEXT_PUBLIC_API_URL
               valueFrom:
                 secretKeyRef:
