@@ -1,13 +1,13 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: devops
   labels:
     apps: devops
 spec:
   ports:
-    - port: 80
-      targetPort: 3000
+    - port: 80 # Exposes port 80 to the outside world
+      targetPort: 3000 # Forwards traffic to port 3000 inside the container
   selector:
-    app: devops
-  type: LoadBalancer
+    app: devops # Matches Pods with the label 'app=devops'
+  type: LoadBalancer # Exposes the service externally using a load balancer

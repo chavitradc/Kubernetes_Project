@@ -1,11 +1,21 @@
 - hosts: all
   become: true
+  collections:
+    - kubernetes.core
   tasks:
     - name: Create Kubernetes secret
-      command: kubectl apply -f /home/dew/Secret.yml
+      k8s:
+        kubeconfig: "/home/dew/.kube/config"
+        definition: "{{ lookup('file', '/home/dew/Secret.yml') | from_yaml }}"
+      environment:
+        KUBECONFIG: "/home/dew/.kube/config"
 
     - name: Create new deployment
-      command: kubectl apply -f /home/dew/Deployment.yml
+      k8s:
+        kubeconfig: "/home/dew/.kube/config"
+        definition: "{{ lookup('file', '/home/dew/Deployment.yml') | from_yaml }}"
 
     - name: Create new service
-      command: kubectl apply -f /home/dew/Service.yml
+      k8s:
+        kubeconfig: "/home/dew/.kube/config"
+        definition: "{{ lookup('file', '/home/dew/Service.yml') | from_yaml }}"

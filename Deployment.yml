@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-devops-deployment # Name of the deployment
+  name: my-devops-deployment
   labels:
-    app: devops # Labels for identifying the deployment
+    app: devops
 spec:
-  replicas: 3 # Number of pod replicas
+  replicas: 3
   selector:
     matchLabels:
-      app: devops # Match the labels of the Pods
+      app: devops
   template:
     metadata:
       labels:
-        app: devops # Labels for Pods created by this deployment
+        app: devops
     spec:
       containers:
-        - name: devops # Name of the container
-          image: chavitradc/pipeline-demo # Docker image to use
+        - name: devops
+          image: chavitradc/pipeline-demo:latest
           ports:
-            - containerPort: 3000 # Expose container's port 3000
-          env: # (Optional) Environment variables
+            - containerPort: 3000
+          env:
             - name: NEXT_PUBLIC_API_URL
               valueFrom:
                 secretKeyRef:
